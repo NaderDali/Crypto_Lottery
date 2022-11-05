@@ -19,9 +19,9 @@ const Home: NextPage = () => {
   
   console.log(address);
   
-  if(isLoading) return <Loading/>;
+  if(!isLoading) return <Loading/>;
  
-  if(!address) return <Login />;
+  if(!address) return (<Login />);
 
 
   return (

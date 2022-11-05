@@ -9,19 +9,14 @@ import{
   
 } from "@thirdweb-dev/react";
 import Login from "../components/Login";
-import Loading from "../components/Loading";
 //localhost:3000
 const Home: NextPage = () => {
   const address=useAddress();
-  const{contract, isLoading}= useContract(
-    process.env.NEXT_PUBLIC_LOTTERY_CONTRACT_ADDRESS
-    ); 
-  
+  const{
+    process.env.NEXT_PUBLIC_LOTTERY_CONTRACT_ADDRESS 
+  };
   console.log(address);
-  
-  if(isLoading) return <Loading/>;
- 
-  if(!address) return <Login />;
+  if(!address) return (<Login />)
 
 
   return (
