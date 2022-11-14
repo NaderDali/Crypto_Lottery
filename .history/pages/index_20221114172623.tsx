@@ -31,11 +31,10 @@ const Home: NextPage = () => {
       contract,
       "CurrentWinningReward"
     );
-    const {data: ticketPrice}=useContractRead(
+    const {data: ticketPirce}=useContractRead(
       contract,
-      "ticketPrice"
-    );
-    const { data: ticketCommission } = useContractRead(contract, "ticketCommission")
+      "ticketPirce"
+    )
   
   console.log(address);
   
@@ -85,8 +84,8 @@ const Home: NextPage = () => {
             <div className="flex justify-between items-center text-white pb-2 ">
               <h2>Price Per Ticket</h2>
               <p>
-                {ticketPrice &&
-                 ethers.utils.formatEther(ticketPrice?.toString())}
+                {ticketPirce &&
+                 ethers.utils.formatEther(ticketPirce?.toString())}
                  {""}
                  {currency} 
               </p>
@@ -106,20 +105,11 @@ const Home: NextPage = () => {
             <div className="space-y-2 mt-5">
               <div className="flex items-center justify-between text-emerald-300 tex-sm italic font-extrabold">
                 <p> Total Cost Of Tickets</p>
-                <p>{ticketPrice &&
-                    Number(
-                     ethers.utils.formatEther(ticketPrice?.toString())
-                     ) *quantity} {""}
-                      {currency}
-                 </p>
+                <p>0.999</p>
               </div>
               <div className="flex items-center justify-between text-emerald-300 tex-xs italic ">
                 <p> Service Fees</p>
-                <p>{ticketCommission &&
-                 ethers.utils.formatEther(ticketCommission?.toString())}
-                 {""}
-                 {currency}
-                 </p>
+                <p>0.001 MATIC</p>
               </div>
               <div className="flex items-center justify-between text-emerald-300 tex-xs italic ">
                 <p> + Network Fees</p>

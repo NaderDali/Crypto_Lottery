@@ -15,7 +15,6 @@ import Login from "../components/Login";
 import Loading from "../components/Loading";
 import { useState } from "react";
 import { ethers } from "ethers";
-import { currency } from "../styles/constants";
 //localhost:3000
 const Home: NextPage = () => {
   const address=useAddress();
@@ -31,11 +30,6 @@ const Home: NextPage = () => {
       contract,
       "CurrentWinningReward"
     );
-    const {data: ticketPrice}=useContractRead(
-      contract,
-      "ticketPrice"
-    );
-    const { data: ticketCommission } = useContractRead(contract, "ticketCommission")
   
   console.log(address);
   
@@ -67,7 +61,7 @@ const Home: NextPage = () => {
               {CurrentWinningReward && ethers.utils.formatEther
               (CurrentWinningReward.toString()
               )}{""}
-              {currency}
+              MATIC
              </p>
            </div>
            <div className="stats">
@@ -84,12 +78,7 @@ const Home: NextPage = () => {
           <div className="stats-container">
             <div className="flex justify-between items-center text-white pb-2 ">
               <h2>Price Per Ticket</h2>
-              <p>
-                {ticketPrice &&
-                 ethers.utils.formatEther(ticketPrice?.toString())}
-                 {""}
-                 {currency} 
-              </p>
+              <p> 0.01 MATIC</p>
             </div>
             <div className="flex text-white items-center space-x-2 bg-[#091B18] border-[#004337] border p-4">
               <p>TICKETS</p>
@@ -106,20 +95,11 @@ const Home: NextPage = () => {
             <div className="space-y-2 mt-5">
               <div className="flex items-center justify-between text-emerald-300 tex-sm italic font-extrabold">
                 <p> Total Cost Of Tickets</p>
-                <p>{ticketPrice &&
-                    Number(
-                     ethers.utils.formatEther(ticketPrice?.toString())
-                     ) *quantity} {""}
-                      {currency}
-                 </p>
+                <p>0.999</p>
               </div>
               <div className="flex items-center justify-between text-emerald-300 tex-xs italic ">
                 <p> Service Fees</p>
-                <p>{ticketCommission &&
-                 ethers.utils.formatEther(ticketCommission?.toString())}
-                 {""}
-                 {currency}
-                 </p>
+                <p>0.001 MATIC</p>
               </div>
               <div className="flex items-center justify-between text-emerald-300 tex-xs italic ">
                 <p> + Network Fees</p>
