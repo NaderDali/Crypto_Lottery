@@ -17,7 +17,6 @@
     }
 
     .countdown-label {
-        @apply text-center text-white uppercase text-sm pt-4
 
     }
 }
