@@ -7,7 +7,6 @@ import{
   useDisconnect,
   useAddress,
   useContractRead,
-  useContractWrite,
 
  
   
@@ -18,7 +17,6 @@ import { useState } from "react";
 import { ethers } from "ethers";
 import { currency } from "../styles/constants";
 import CountDownTimer from "../components/CountDownTimer";
-import toast from "react-hot-toast";
 //localhost:3000
 const Home: NextPage = () => {
   const address=useAddress();
@@ -42,49 +40,9 @@ const Home: NextPage = () => {
       contract,
       "ticketPrice"
     );
-    const { data: ticketCommission } = useContractRead(
-      contract, 
-      "ticketCommission"
-    );
-
-    const {mutateAsync: BuyTickets} = useContractWrite(
-      contract, 
-      "BuyTickets"
-      );
-    //buying Tickets confirmation
-    const handleClick = async() => {
-      if(!ticketPrice) return ;
-
-      const notification =toast.loading("Buying your tickets...");
-      try {
-        const data = await BuyTickets([
-          {
-            value: ethers.utils.parseEther(
-              (
-                Number(ethers.utils.formatEther(ticketPrice)) * quantity
-              ).toString()
-              ),
-            
-          },
-        ]);
-        
-      
-        toast.success("Tickets purchased successfully",{
-          id: notification,
-        
-        })
-        
-        
-
-      } catch(err){
-        toast.error("Something went wrong!")
-      
-        
-      }
-    };
-
+    const { data: ticketCommission } = useContractRead(contract, "ticketCommission")
   
-  
+  console.log(address);
   
   if(isLoading) return <Loading/>;
  
@@ -182,15 +140,16 @@ const Home: NextPage = () => {
                 expiration?.toString() < Date.now().toString
                 () || remainingTickets?.toNumber() === 0 
               }
-              onClick={handleClick}
-              className="mt-5 w-full bg-gradient-to-br from-orange-500 to-emerald-600 px-10 py-5 rounded-md text-white shadow-xl disabled:from-gray-600  disabled:cursor-not-allowed "> 
-              Buy Tickets
-              </button>
+              className="mt-5 w-full bg-gradient-to-br from-orange-500 to-emerald-600 px-10 py-5 rounded-md text-white shadow-xl  "> 
+              Buy Tickets</button>
           </div>
         </div>
       </div>
+      {/*the Price per ticket box*/}
       <div>
-        
+        <div>
+
+        </div>
       </div>
 
 

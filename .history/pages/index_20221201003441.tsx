@@ -51,7 +51,7 @@ const Home: NextPage = () => {
       contract, 
       "BuyTickets"
       );
-    //buying Tickets confirmation
+    
     const handleClick = async() => {
       if(!ticketPrice) return ;
 
@@ -69,17 +69,13 @@ const Home: NextPage = () => {
         ]);
         
       
-        toast.success("Tickets purchased successfully",{
-          id: notification,
-        
-        })
-        
-        
+        toast.success("Tickets purchased successfully")
+        console.info("contract call success",data);
 
       } catch(err){
         toast.error("Something went wrong!")
       
-        
+        console.error("contract call failure",err)
       }
     };
 

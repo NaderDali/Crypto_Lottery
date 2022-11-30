@@ -47,44 +47,30 @@ const Home: NextPage = () => {
       "ticketCommission"
     );
 
-    const {mutateAsync: BuyTickets} = useContractWrite(
-      contract, 
-      "BuyTickets"
-      );
-    //buying Tickets confirmation
-    const handleClick = async() => {
+    const {mutateAsync: BuyTickets} = useContractWrite(contract, "BuyTickets")
+    const handleclick = async()=>{
       if(!ticketPrice) return ;
 
-      const notification =toast.loading("Buying your tickets...");
-      try {
-        const data = await BuyTickets([
-          {
-            value: ethers.utils.parseEther(
-              (
-                Number(ethers.utils.formatEther(ticketPrice)) * quantity
-              ).toString()
-              ),
-            
-          },
-        ]);
-        
-      
-        toast.success("Tickets purchased successfully",{
-          id: notification,
-        
+      const notification =toast.loading("Buying your tickets...")
+      try{
+        const data =await BuyTickets({
+          value : ethers.utils.parseEther(
+            (Number(ethers.utils.formatEther(ticketPrice))* quantity).toString()
+            ),
         })
-        
-        
+        toast.success("Tickets purchased succefully!",{
+           id : notification,
+        })
 
       } catch(err){
-        toast.error("Something went wrong!")
-      
-        
+        toast.error("Something went wrong!", {
+          id:notification, 
+        })
       }
-    };
+    }
 
   
-  
+  console.log(address);
   
   if(isLoading) return <Loading/>;
  
@@ -182,15 +168,17 @@ const Home: NextPage = () => {
                 expiration?.toString() < Date.now().toString
                 () || remainingTickets?.toNumber() === 0 
               }
-              onClick={handleClick}
+              onClick={handleclick}
               className="mt-5 w-full bg-gradient-to-br from-orange-500 to-emerald-600 px-10 py-5 rounded-md text-white shadow-xl disabled:from-gray-600  disabled:cursor-not-allowed "> 
-              Buy Tickets
-              </button>
+              Buy Tickets</button>
           </div>
         </div>
       </div>
+      {/*the Price per ticket box*/}
       <div>
-        
+        <div>
+
+        </div>
       </div>
 
 
