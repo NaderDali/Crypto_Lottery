@@ -207,17 +207,14 @@ const Home: NextPage = () => {
                rounded-md font-semibold text-white shadow-xl disabled:from-gray-600  disabled:cursor-not-allowed "> 
               Buy  {quantity} tickets for { "" }
               { ticketPrice && 
-              Number(ethers.utils.formatEther(ticketPrice.toString
-              ())) 
-              * quantity } {" "}           
+              Number(ethers.utils.formatEther(ticketPrice.toString())) }
+              * quantity {""}           
               {currency}
               </button>
           </div>
-          {/*tickets in draw*/}
           {userTickets > 0 && ( 
             <div className="stats">
-              <p className=" text-lg mb-2"> 
-              You have {userTickets} Tickets in this draw </p>
+              <p> You have {userTickets} Tickets in this draw </p>
               <div className="flex max-w-sm flex-wrap gap-x-2">
                 {Array(userTickets)
                 .fill("")
