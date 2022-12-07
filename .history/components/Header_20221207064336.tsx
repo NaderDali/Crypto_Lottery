@@ -12,7 +12,7 @@ function Header() {
             
            <img
            className="rounded-full h-20 w-20"
-            src="https://tse2.mm.bing.net/th?id=OIP.HyGh-4Z2m470B9gTA0Ke6AHaHa&pid=Api&P=0" 
+            src="https://i.imgur.com/PwZqOq1.png" 
             alt=""
             />
         

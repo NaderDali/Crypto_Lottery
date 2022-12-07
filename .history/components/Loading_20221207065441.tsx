@@ -8,7 +8,7 @@ function Loading() {
     <div className="flex items-center space-x-2 mb-10">
       <img 
        className="rounded-full h-20 w-20" 
-       src="https://i.imgur.com/4h7mAu7.png" 
+       src="https://tse2.mm.bing.net/th?id=OIP.HyGh-4Z2m470B9gTA0Ke6AHaHa&pid=Api&P=0" 
        alt="" 
        />
       <h1 className="text-lg text-white font-bold"> Loading Computer Based Lottery Draw</h1>
