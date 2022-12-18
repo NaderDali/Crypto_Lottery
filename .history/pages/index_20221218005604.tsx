@@ -20,8 +20,6 @@ import { ethers } from "ethers";
 import { currency } from "../styles/constants";
 import CountDownTimer from "../components/CountDownTimer";
 import toast from "react-hot-toast";
-import Marquee from "react-fast-marquee";
-import AdminControls from "../components/AdminControls";
 //localhost:3000
 const Home: NextPage = () => {
   const address=useAddress();
@@ -56,12 +54,12 @@ const Home: NextPage = () => {
        "getTickets"
     );
    
-    const {mutateAsync: BuyTickets,  } = useContractWrite(
+    const {mutateAsync: BuyTickets} = useContractWrite(
       contract, 
       "BuyTickets"
       );
-      const { data: winnings } = useContractRead(
-        contract, 
+      const { data: winnings } = useContractRead
+      (contract, 
         "getWinningsForAddress", 
         address
 
@@ -69,22 +67,9 @@ const Home: NextPage = () => {
       );
       const { mutateAsync : WithdrawWinnings } = useContractWrite(
         contract,
-        "WithdrawWinnings"
+        "withdrawWinnings"
 
       );
-      const{data : lastWinner } = useContractRead ( 
-        contract, 
-        "lastWinner");
-      const{data: lastWinnerAmount }= useContractRead(
-        contract,
-        "lastWinnerAmount");
-
-      const{data: isLotteryOperator} = useContractRead(
-        contract,
-        "lotteryOperator"
-      )  ;
-
-
       useEffect(() => { 
         if(!tickets) return ;
         const totalTickets: string[]=tickets;
@@ -113,31 +98,20 @@ const Home: NextPage = () => {
           },
         ]);
         
-        
-        
       
         toast.success("Tickets purchased successfully",{
           id: notification,
-          
         
-        });
-        console.info("contract call successs", data)
-        
-        
+        })
         
         
 
       } catch(err){
-        
-        toast.error("Something went wrong!", {
-          id:notification, 
-        })
-        
-        console.error("contract call failure", err)
+        toast.error("Something went wrong!")
+      
         
       }
     };
-    
     const onWithdrawWinnings= async () => {
       const notification = toast.loading ("withdrawing winnings...");
        
@@ -146,7 +120,6 @@ const Home: NextPage = () => {
         toast.success("Winning withdrawn succefully!", {
           id: notification,
         }); 
-        console.info("contract call successs", data)
 
       } catch (err) {
         toast.error("something went wrong!", {
@@ -174,25 +147,9 @@ const Home: NextPage = () => {
       </Head>
        <div className="flex-1">
 
+       
+
       <Header />
-      <Marquee className=" bg-[#0A1f1c] p-5 mb-5" gradient={false} speed ={100}>
-
-        <div className="flex space-x-2 mx-10">
-          <h4 className="text-white font-bold"> Last Winner :{lastWinner?.toString()}</h4>
-          <h4 className="text-white font-bold"> Previous winnings:{""}
-          {lastWinnerAmount && ethers.utils.formatEther(lastWinnerAmount?.toString()) }
-          {" "}
-          {currency}
-          </h4>
-        </div>
-
-
-      </Marquee>
-      {isLotteryOperator === address && (
-        <div className="flex justify-center">
-          <AdminControls />
-        </div>  
-      )}
 
       {winnings > 0 && (
         <div className="max-w-md md:max-w-2xl lg:max-w-4xl mx-auto mt-5">
@@ -205,8 +162,7 @@ const Home: NextPage = () => {
             toString())}{" "} 
             {currency}
             </p>
-            <br />
-
+            <br/>
             <p className="font-semibold">Click here to withdraw</p>
           </button>
 

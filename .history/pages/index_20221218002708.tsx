@@ -20,8 +20,6 @@ import { ethers } from "ethers";
 import { currency } from "../styles/constants";
 import CountDownTimer from "../components/CountDownTimer";
 import toast from "react-hot-toast";
-import Marquee from "react-fast-marquee";
-import AdminControls from "../components/AdminControls";
 //localhost:3000
 const Home: NextPage = () => {
   const address=useAddress();
@@ -55,47 +53,36 @@ const Home: NextPage = () => {
       contract,
        "getTickets"
     );
-   
-    const {mutateAsync: BuyTickets,  } = useContractWrite(
+    useEffect(()=> {
+      if(!tickets) return;
+      const totalTickets : string []= tickets;
+      const noOfUserTickets = totalTickets.reduce(
+        (total,ticketAddress) => (ticketAddress === address ? total +1 : 
+          total),
+          0
+      );
+      setUserTickets(noOfUserTickets);
+    },[tickets,address]);
+    
+
+
+
+    const {mutateAsync: BuyTickets} = useContractWrite(
       contract, 
       "BuyTickets"
       );
-      const { data: winnings } = useContractRead(
-        contract, 
+      const { data: winnings } = useContractRead
+      (contract, 
         "getWinningsForAddress", 
         address
 
       
       );
-      const { mutateAsync : WithdrawWinnings } = useContractWrite(
+      const { mutateAsync : WithdraWinnings } = useContractWrite(
         contract,
-        "WithdrawWinnings"
+        "withdrawinning"
 
       );
-      const{data : lastWinner } = useContractRead ( 
-        contract, 
-        "lastWinner");
-      const{data: lastWinnerAmount }= useContractRead(
-        contract,
-        "lastWinnerAmount");
-
-      const{data: isLotteryOperator} = useContractRead(
-        contract,
-        "lotteryOperator"
-      )  ;
-
-
-      useEffect(() => { 
-        if(!tickets) return ;
-        const totalTickets: string[]=tickets;
-        const noOfUserTickets= totalTickets.reduce(
-          (total,ticketAddress) => (ticketAddress === address ? total + 1 :
-            total),
-            0
-        );
-        setUserTickets(noOfUserTickets);
-
-          }, [tickets,address]);
     //buying Tickets confirmation
     const handleClick = async() => {
       if(!ticketPrice) return ;
@@ -113,51 +100,35 @@ const Home: NextPage = () => {
           },
         ]);
         
-        
-        
       
         toast.success("Tickets purchased successfully",{
           id: notification,
-          
         
-        });
-        console.info("contract call successs", data)
-        
-        
+        })
         
         
 
       } catch(err){
-        
-        toast.error("Something went wrong!", {
-          id:notification, 
-        })
-        
-        console.error("contract call failure", err)
+        toast.error("Something went wrong!")
+      
         
       }
     };
-    
-    const onWithdrawWinnings= async () => {
+    const onWithdrawWinnings= async() => {
       const notification = toast.loading ("withdrawing winnings...");
-       
       try {
-        const data = await WithdrawWinnings([{}]);
+        const data = await WithdraWinnings([{}]);
         toast.success("Winning withdrawn succefully!", {
-          id: notification,
+          id:notification,
         }); 
-        console.info("contract call successs", data)
 
-      } catch (err) {
-        toast.error("something went wrong!", {
-          id: notification,
-         
-         });
+      } catch(err) {
+        toast.error("something went wrong!"), {
+          id:notification,
+        }
+      };
 
-       console.error("contract call failure", err);
-       }
-
-    };
+    }
 
   
   
@@ -172,27 +143,9 @@ const Home: NextPage = () => {
       <Head>
         <title>Computer Based Lottery</title>
       </Head>
-       <div className="flex-1">
+       
 
       <Header />
-      <Marquee className=" bg-[#0A1f1c] p-5 mb-5" gradient={false} speed ={100}>
-
-        <div className="flex space-x-2 mx-10">
-          <h4 className="text-white font-bold"> Last Winner :{lastWinner?.toString()}</h4>
-          <h4 className="text-white font-bold"> Previous winnings:{""}
-          {lastWinnerAmount && ethers.utils.formatEther(lastWinnerAmount?.toString()) }
-          {" "}
-          {currency}
-          </h4>
-        </div>
-
-
-      </Marquee>
-      {isLotteryOperator === address && (
-        <div className="flex justify-center">
-          <AdminControls />
-        </div>  
-      )}
 
       {winnings > 0 && (
         <div className="max-w-md md:max-w-2xl lg:max-w-4xl mx-auto mt-5">
@@ -205,8 +158,7 @@ const Home: NextPage = () => {
             toString())}{" "} 
             {currency}
             </p>
-            <br />
-
+            <br/>
             <p className="font-semibold">Click here to withdraw</p>
           </button>
 
@@ -329,7 +281,6 @@ const Home: NextPage = () => {
         </div>
       </div>
       <div>
-      </div>
       </div>
 
 

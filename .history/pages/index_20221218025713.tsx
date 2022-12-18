@@ -190,7 +190,7 @@ const Home: NextPage = () => {
       </Marquee>
       {isLotteryOperator === address && (
         <div className="flex justify-center">
-          <AdminControls />
+          <AdminControls/>
         </div>  
       )}
 
