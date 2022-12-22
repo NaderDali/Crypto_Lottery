@@ -40,7 +40,7 @@ function AdminControls() {
 
     const {mutateAsync:WithdrawCommission} =useContractWrite(
       contract,
-      "WithdrawCommission"
+      "WithdrawCommssion"
     );
 
     const drawWinner= async() => {

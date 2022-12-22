@@ -40,7 +40,7 @@ function AdminControls() {
 
     const {mutateAsync:WithdrawCommission} =useContractWrite(
       contract,
-      "WithdrawCommission"
+      "WithdrawCommssion"
     );
 
     const drawWinner= async() => {
@@ -61,7 +61,7 @@ function AdminControls() {
       }
 
     }
-    const onWithdrawCommission= async() => {
+    const onWithdrawCommssion= async() => {
       const notification=toast.loading("Withdrawing commsion...");
       try {
         const data = await WithdrawCommission([{}]);
@@ -128,7 +128,7 @@ function AdminControls() {
             <StarIcon className="h-6 mx-auto mb-2" />
             Draw Winner
           </button>
-          <button onClick={onWithdrawCommission} className='admin-button'>
+          <button onClick={onWithdrawCommssion} className='admin-button'>
             <CurrencyDollarIcon className="h-6 mx-auto mb-2"/>
             Withdraw Commsion
           </button>
