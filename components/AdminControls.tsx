@@ -130,7 +130,7 @@ function AdminControls() {
           </button>
           <button onClick={onWithdrawCommission} className='admin-button'>
             <CurrencyDollarIcon className="h-6 mx-auto mb-2"/>
-            Withdraw Commsion
+            Withdraw Commission
           </button>
           <button onClick={onRestartDraw} className='admin-button'>
             <ArrowPathIcon className='h-6 mx-auto mb-2'/>
