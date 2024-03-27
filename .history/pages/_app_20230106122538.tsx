@@ -5,6 +5,7 @@ import {Toaster} from "react-hot-toast"
 
 function MyApp({ Component, pageProps }: AppProps) {
   return( 
+    //mumbai for testnet and polygon for mainnet
     <ThirdwebProvider desiredChainId={ChainId.Mumbai}>
       <Component {...pageProps} />
       <Toaster />
